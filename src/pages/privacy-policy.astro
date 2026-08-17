@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Privacy Policy | Nocturnal Enuresis" 
+  description="Privacy policy and data handling information for the Nocturnal Enuresis information hub."
+>
+  <div class="container legal-container">
+    <header class="legal-header">
+      <h1 class="legal-title">Privacy Policy</h1>
+      <p class="legal-date">Last Updated: August 2026</p>
+    </header>
+    
+    <div class="content legal-content">
+      <h2>1. Introduction</h2>
+      <p>
+        The National Association for Continence (NAFC) and our medical partners respect your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you visit this website.
+      </p>
+
+      <h2>2. Information Collection</h2>
+      <p>
+        As an educational medical resource, we do not require users to register or provide Personal Health Information (PHI) to access our articles. We may collect non-personally identifiable information automatically (such as browser type, operating system, and IP address) to monitor website traffic and improve user experience via standard analytics tools.
+      </p>
+
+      <h2>3. Use of Information</h2>
+      <p>
+        Any aggregate information collected is used solely to:
+      </p>
+      <ul>
+        <li>Understand how users interact with our educational content.</li>
+        <li>Improve the technical performance and design of the website.</li>
+        <li>Monitor site security and prevent malicious activity.</li>
+      </ul>
+
+      <h2>4. Cookies</h2>
+      <p>
+        We may use "cookies" to enhance your experience. A cookie is a small text file placed on your device. You may choose to set your web browser to refuse cookies, or to alert you when cookies are being sent. Note that doing so will not restrict your access to any of our educational content.
+      </p>
+
+      <h2>5. Third-Party Links</h2>
+      <p>
+        Our articles frequently contain links to external medical journals, research platforms, and clinical resources (such as ResearchGate or specific clinics). We are not responsible for the privacy practices or the content of these third-party websites. We encourage our users to read the privacy policies of any external site they visit.
+      </p>
+
+      <h2>6. Changes to this Policy</h2>
+      <p>
+        The NAFC reserves the right to update this Privacy Policy at any time. Any changes will be posted on this page with an updated "Last Updated" date.
+      </p>
+
+      <h2>7. Contact</h2>
+      <p>
+        If you have any questions regarding this Privacy Policy, please contact us at <a href="mailto:privacy@nafc.org">privacy@nafc.org</a>.
+      </p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .legal-container {
+    max-width: 800px;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .legal-header {
+    margin-bottom: 3rem;
+  }
+
+  .legal-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+  }
+
+  .legal-date {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .legal-content h2 {
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text-main);
+  }
+</style>

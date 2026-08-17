@@ -1,0 +1,189 @@
+---
+import Layout from '../layouts/Layout.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+// Comprehensive E-E-A-T Schema for Dr. Barroso
+const schema = {
+  "@context": "https://schema.org",
+  "@type": ["Physician", "Person"],
+  "name": "Ubirajara Barroso, Jr.",
+  "honorificPrefix": "Dr.",
+  "honorificSuffix": "MD, PhD",
+  "jobTitle": "Professor of Urology and Pediatric Urologist",
+  "medicalSpecialty": "http://schema.org/Urologic",
+  "url": "https://www.nocturnalenuresis.com/about",
+  "sameAs": [
+    "https://ubirajarabarroso.com.br",
+    "http://lattes.cnpq.br/...",
+    "https://www.researchgate.net/profile/Ubirajara-Barroso-Jr"
+  ],
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Federal University of São Paulo"
+  },
+  "memberOf": [
+    {
+      "@type": "Organization",
+      "name": "Academy of Medicine of Bahia"
+    },
+    {
+      "@type": "Organization",
+      "name": "Academy of Sciences of Bahia"
+    }
+  ],
+  "description": "Renowned Brazilian urologist specializing in pediatric urology and complex reconstructive surgeries, with over 200 scientific publications."
+};
+---
+
+<Layout 
+  title="About Dr. Ubirajara Barroso, Jr. | Medical Expert" 
+  description="Learn about Dr. Ubirajara Barroso, Jr., MD, PhD, a leading pediatric urologist, CNPq Level 2 researcher, and expert in nocturnal enuresis."
+>
+  <JsonLd schema={schema} />
+
+  <div class="container about-container">
+    <header class="about-header">
+      <div class="about-header-content">
+        <img src="/images/dr-barroso.png" alt="Dr. Ubirajara Barroso, Jr." class="about-avatar" />
+        <div>
+          <h1 class="about-title">Ubirajara Barroso, Jr.</h1>
+          <p class="about-subtitle">MD, PhD &middot; Pediatric Urologist & Clinical Researcher</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="about-grid">
+      <div class="about-main content">
+        <h2>Professional Biography</h2>
+        <p>
+          Dr. Ubirajara Barroso Jr. is a renowned Brazilian urologist specializing in pediatric urology and complex reconstructive surgeries for adults and children. With decades of clinical and surgical experience, he is widely recognized for his expertise in reconstructive surgery of the penis, urethra, bladder, and kidney.
+        </p>
+        <p>
+          His clinical work focuses intensively on conditions such as hypospadias, neurogenic bladder, vesicoureteral reflux, urinary tract infections, and <strong>nocturnal enuresis</strong> (bedwetting).
+        </p>
+
+        <h2>Academic Excellence & Research</h2>
+        <p>
+          Holding a doctorate (PhD) in Urology from the prestigious Federal University of São Paulo, Dr. Barroso is deeply committed to advancing medical science. He serves as an active Level 2 researcher with the National Council for Scientific and Technological Development (CNPq) in Brazil.
+        </p>
+        <p>
+          Throughout his career, he has authored more than 200 peer-reviewed scientific publications and several seminal books in his field. He frequently shares his expertise as an international lecturer on pediatric urology and reconstructive techniques.
+        </p>
+
+        <h2>Affiliations</h2>
+        <ul class="affiliations-list">
+          <li>Professor of Urology, Federal University of Bahia (UFBA)</li>
+          <li>Member, Academy of Medicine of Bahia</li>
+          <li>Member, Academy of Sciences of Bahia</li>
+          <li>Chief Scientific Officer, Global Continence</li>
+        </ul>
+      </div>
+
+      <aside class="about-sidebar">
+        <div class="sidebar-box">
+          <h3>Editorial Policy</h3>
+          <p>All medical content on this website is rigorously reviewed by Dr. Barroso to ensure adherence to the latest clinical guidelines and pediatric urology standards.</p>
+        </div>
+        <div class="sidebar-box">
+          <h3>Contact</h3>
+          <p>For clinical inquiries or consultations, please visit Dr. Barroso's official clinic website.</p>
+          <a href="https://ubirajarabarroso.com.br" class="btn" target="_blank" rel="noopener noreferrer">Visit Clinic Website</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .about-container {
+    padding: 2rem 0 6rem;
+  }
+
+  .about-header {
+    margin-bottom: 4rem;
+  }
+  
+  .about-header-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .about-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .about-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+  }
+
+  .about-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .about-main h2 {
+    font-size: 1.75rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text-main);
+  }
+  
+  .about-main h2:first-child {
+    margin-top: 0;
+  }
+
+  .affiliations-list {
+    list-style-type: none;
+    padding-left: 0;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .affiliations-list li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .affiliations-list li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  .sidebar-box {
+    background-color: var(--surface-light);
+    padding: 2.5rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-box h3 {
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
+  }
+  
+  .sidebar-box p {
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+  }
+</style>

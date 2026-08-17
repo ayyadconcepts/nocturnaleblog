@@ -1,0 +1,339 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import JsonLd from '../../components/JsonLd.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Fetch all posts for related section
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(p => p.id !== post.id)
+  .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf())
+  .slice(0, 4);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": post.data.schemas || "MedicalWebPage",
+  "name": post.data.title,
+  "description": post.data.description,
+  "specialty": "http://schema.org/Urologic",
+  "reviewedBy": {
+    "@type": "Physician",
+    "name": "Dr. Ubirajara Barroso, Jr.",
+    "url": "https://www.nocturnalenuresis.com/about"
+  },
+  "lastReviewed": post.data.pubDate.toISOString()
+};
+---
+
+<Layout title={`${post.data.title} | Dr. Barroso`} description={post.data.description}>
+  <JsonLd schema={schema} />
+
+  <article class="container blog-post-container">
+    <header class="post-header">
+      <h1 class="post-title">{post.data.title}</h1>
+      <div class="post-date-wrapper">
+        <time class="post-date" datetime={post.data.pubDate.toISOString()}>
+          Published on {post.data.pubDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+      </div>
+
+      <div class="reviewer-card">
+        <img src="/images/dr-barroso.png" alt="Dr. Barroso" class="reviewer-avatar" />
+        <div class="reviewer-details">
+          <span class="review-badge">Medically Reviewed by <a href="/about">Ubirajara Barroso, Jr., MD, PhD</a></span>
+          <p class="reviewer-bio">Dr. Barroso is a world-renowned pediatric urologist, researcher, and former President of the International Children's Continence Society (ICCS). He specializes in evidence-based treatments for enuresis and bladder dysfunction.</p>
+        </div>
+      </div>
+    </header>
+    
+    <div class="post-content content">
+      <Content />
+    </div>
+
+    {relatedPosts.length > 0 && (
+      <section class="related-articles">
+        <h2>Recommended Reading</h2>
+        <div class="related-grid">
+          {relatedPosts.map(related => (
+            <a href={`/blog/${related.id}`} class="related-card">
+              <h3>{related.data.title}</h3>
+              <p>{related.data.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+  </article>
+</Layout>
+
+<style>
+  .blog-post-container {
+    max-width: 800px;
+    padding: 4rem 2rem 6rem;
+  }
+
+  .post-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .post-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+    color: var(--text-main);
+  }
+
+  .post-date-wrapper {
+    margin-bottom: 3rem;
+  }
+
+  .post-date {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .reviewer-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background-color: var(--surface-light);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid var(--text-light);
+  }
+
+  .reviewer-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .reviewer-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .review-badge {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 1.05rem;
+  }
+
+  .review-badge a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  
+  .review-badge a:hover {
+    color: var(--text-muted);
+  }
+
+  .reviewer-bio {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Post Content Styles */
+  .post-content :global(h2) {
+    font-size: 2rem;
+    margin: 3rem 0 1rem;
+    color: var(--text-main);
+  }
+
+  .post-content :global(h3) {
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+    color: var(--text-main);
+  }
+
+  .post-content :global(p) {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+  }
+
+  .post-content :global(ul), 
+  .post-content :global(ol) {
+    margin: 0 0 1.5rem 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-content :global(blockquote) {
+    border: none;
+    background-color: var(--surface-light);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    font-style: normal;
+    color: var(--text-main);
+  }
+
+  .post-content :global(blockquote p) {
+    color: var(--text-main);
+    margin-bottom: 0;
+  }
+  
+  .post-content :global(blockquote p:not(:last-child)) {
+    margin-bottom: 1rem;
+  }
+
+  .post-content :global(.direct-answer) {
+    background-color: var(--surface-light);
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    margin: 2.5rem 0;
+    font-size: 1.15rem;
+    color: var(--text-main);
+  }
+  
+  .post-content :global(.direct-answer p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .post-content :global(.cendry-callout) {
+    background-color: #f3e8ff;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    color: var(--text-main);
+  }
+  
+  .post-content :global(.cendry-callout p:first-child) {
+    font-family: var(--font-heading);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-content :global(.cendry-callout p:first-child strong) {
+    font-weight: 600; 
+    font-size: 0.95rem;
+    color: #6b21a8; /* Dark purple */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .post-content :global(.cendry-callout a) {
+    color: #6b21a8; /* Darker purple for link */
+    font-weight: 600;
+  }
+  
+  .post-content :global(.cendry-callout a:hover) {
+    color: var(--text-main);
+  }
+
+  /* Table Styles */
+  .post-content :global(table) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 2.5rem 0;
+    font-size: 1.05rem;
+    text-align: left;
+    border: 1px solid var(--surface-light);
+    border-radius: 8px;
+  }
+
+  .post-content :global(th),
+  .post-content :global(td) {
+    padding: 1rem;
+    border-bottom: 1px solid var(--surface-light);
+    color: var(--text-main);
+  }
+
+  .post-content :global(th) {
+    background-color: var(--surface-light);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .post-content :global(tbody tr:last-child td) {
+    border-bottom: none;
+  }
+
+  /* Related Articles Styles */
+  .related-articles {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--surface-light);
+  }
+
+  .related-articles h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    color: var(--text-main);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .related-card {
+    background-color: var(--surface-light);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border: 1px solid transparent;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    border-color: #e2e8f0;
+  }
+
+  .related-card h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--text-main);
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  .related-card p {
+    font-size: 0.95rem;
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

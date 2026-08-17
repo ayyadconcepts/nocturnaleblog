@@ -1,0 +1,234 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <div class="header-left">
+          <a href="/" class="logo">Nocturnal Enuresis Hub</a>
+        </div>
+        <div class="header-right">
+          <nav class="nav">
+            <a href="/about">about</a>
+            <a href="/blog">articles</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+    
+    <main>
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <h2 class="footer-title">Contacts</h2>
+        
+        <div class="footer-content">
+          <div class="footer-col">
+            <span class="contact-label">Email</span>
+            <a href="mailto:contact@nocturnalenuresis.com" class="contact-link">contact@nocturnalenuresis.com</a>
+          </div>
+          <div class="footer-col">
+            <span class="contact-label">Organization</span>
+            <a href="https://nafc.org" target="_blank" rel="noopener noreferrer" class="contact-link">nafc.org</a>
+          </div>
+          <div class="footer-col">
+            <span class="contact-label">Management</span>
+            <span class="contact-text">National Association for Continence</span>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-bottom-left">
+            <span>Managed by the <a href="https://nafc.org" class="author-link" target="_blank" rel="noopener noreferrer">NAFC</a>. Medically directed by <a href="/about" class="author-link">Dr. Ubirajara Barroso, Jr.</a></span>
+          </div>
+          
+          <div class="footer-bottom-right">
+            <nav class="legal-nav">
+              <a href="/privacy-policy">Privacy Policy</a>
+              <a href="/terms-of-use">Terms of Use</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  /* Header */
+  .header {
+    padding: 3rem 0;
+  }
+
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text-main);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav a {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  .nav a:hover {
+    color: var(--text-main);
+  }
+
+  /* Footer */
+  .footer {
+    padding: 6rem 0 3rem;
+    margin-top: 4rem;
+  }
+
+  .footer-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer-content {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-main);
+  }
+
+  .contact-link {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--text-light);
+    text-underline-offset: 6px;
+    text-decoration-thickness: 1px;
+    display: inline-block;
+    padding-bottom: 0.2rem;
+  }
+
+  .contact-link:hover {
+    color: var(--text-main);
+    text-decoration-color: var(--text-main);
+  }
+
+  .contact-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom {
+      flex-direction: row;
+    }
+  }
+
+  .author-link {
+    text-decoration: underline;
+    text-decoration-color: var(--text-light);
+    text-underline-offset: 4px;
+    color: var(--text-muted);
+  }
+  
+  .author-link:hover {
+    color: var(--text-main);
+    text-decoration-color: var(--text-main);
+  }
+
+  .footer-bottom-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .legal-nav {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.85rem;
+  }
+
+  .legal-nav a {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--text-light);
+    text-underline-offset: 4px;
+  }
+
+  .legal-nav a:hover {
+    color: var(--text-main);
+    text-decoration-color: var(--text-main);
+  }
+</style>
