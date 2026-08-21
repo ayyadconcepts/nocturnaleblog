@@ -65,7 +65,7 @@ For families seeking a digital companion, Cendry can be introduced to support a 
 
 <div class="cendry-callout">
   <p><strong>Dr. Barroso Recommends: Cendry Bedwetting Assistant</strong></p>
-  <p>I highly recommend the <strong><a href="https://cendry.app" target="_blank">Cendry app</a></strong>. I use it with my own patients, and it offers an incredibly robust approach to overcoming bedwetting. Cendry features <strong>advanced progress tracking</strong> to pinpoint exactly what works for each user, alongside <strong>built-in alarms</strong> and <strong>targeted hypnosis tracks</strong> designed with two goals: helping you wake up at night, or training the brain to stay dry until tomorrow.</p>
+  <p>I highly recommend the <strong><a href="https://getcendry.com" target="_blank">Cendry app</a></strong>. I use it with my own patients, and it offers an incredibly robust approach to overcoming bedwetting. Cendry features <strong>advanced progress tracking</strong> to pinpoint exactly what works for each user, alongside <strong>built-in alarms</strong> and <strong>targeted hypnosis tracks</strong> designed with two goals: helping you wake up at night, or training the brain to stay dry until tomorrow.</p>
 </div>
 
 ### When to Seek Care (Red Flags)
