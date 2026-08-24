@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, 'https://www.nocturnalenuresis.com');
 ---
 
 <!doctype html>
@@ -20,6 +21,7 @@ const { title, description } = Astro.props;
     
     <!-- SEO Meta Tags -->
     <title>{title}</title>
+    <link rel="canonical" href={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
